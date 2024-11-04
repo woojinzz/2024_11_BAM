@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("== 프로그램 시작 ==");
 		Scanner sc = new Scanner(System.in);
-		int cnt = 0; 
+		List<Article> articles = new ArrayList<>();
+		int id = 1; 
 		
 		while(true) {
 			
@@ -12,13 +15,12 @@ public class Main {
 			String cmd = sc.nextLine().trim();
 			
 			if (cmd.equals("article list")) {
-				if (cnt == 0) {
+				if (id == 0) {
 					System.out.println("게시글이 없습니다.");
 				}
 				continue;
 			}
 			
-		
 			if (cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요.");
 				continue;
@@ -29,19 +31,47 @@ public class Main {
 			
 			else if (cmd.equals("article write")) {
 				System.out.println("제목 : ");
-				String title = sc.nextLine();
+				String title = sc.nextLine().trim();
 				System.out.println("내용 : ");
 				String body = sc.nextLine();
-				cnt++;
-				System.out.println(cnt + " 번 글이 생성되었습니다.");
-			
+				
+				Article article = new Article(id, title, body);
+				articles.add(article);
+//				articles.add(new Article(id, title, body));
+				
+				System.out.println(id + " 번 글이 생성되었습니다.");
+				id++;
+				
+			} else if (cmd.equals("article list")) {
+				
+				for(int i = 0; i < articles.size(); i++) {
+					System.out.println(i);
+//					System.out.println(articles.get(i).id);
+//					System.out.println(articles.get(i).title);
+//					System.out.println(articles.get(i).body);
+					
+				}
+				
+				
 			}
-			
 			else {
 				System.out.println("존재하지 않는 명령어 입니다.");
 			}
 		}
 		sc.close();
 		System.out.println("== 프로그램 끝 ==");
+	}
+}
+
+class Article {
+	int id;
+	String title;
+	String body;
+
+	Article(int id, String title, String body){
+		this.id = id;
+		this.title = title;
+		this.body = body;
+		
 	}
 }
