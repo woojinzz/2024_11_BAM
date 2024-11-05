@@ -63,8 +63,15 @@ public class Main {
 
 			else if (cmd.startsWith("article detail ")) {
 				String[] cmdBits = cmd.split(" ");
-				int lastAticleId = Integer.parseInt(cmdBits[2]);
-				boolean articleChk = false;
+				int lastAticleId = 0;
+
+				try {
+					lastAticleId = Integer.parseInt(cmdBits[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("명령어가 올바르지 않습니다.");
+					continue;
+				}
+
 				Article foundArticle = null;
 
 				for (Article article : articles) {
@@ -84,51 +91,69 @@ public class Main {
 				System.out.println("제목 : " + foundArticle.title);
 				System.out.println("내용 : " + foundArticle.body);
 
-			} else if (cmd.startsWith("article delete ")) {
-
-				String[] cmdBits = cmd.split(" ");
-				int lastAticleId = Integer.parseInt(cmdBits[2]);
-//				boolean articleChk = false;
-//				Article foundArticle = null;
-//				System.out.println(lastAticleId);
-//				articles.remove(lastAticleId);
-//				System.out.println("삭제");
-
-				for (Article article : articles) {
-					if (article.id != lastAticleId) {
-						System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", lastAticleId);
-						break;
-					} else {
-						articles.remove(lastAticleId);
-						System.out.printf("%d 번 게시물이 삭제되었습니다.\n", lastAticleId);
-						break;
-					}
-				}
-				continue;
-
 			} else if (cmd.startsWith("article modify ")) {
 
 				String[] cmdBits = cmd.split(" ");
 				int lastAticleId = Integer.parseInt(cmdBits[2]);
-				boolean articleChk = false;
 				Article foundArticle = null;
 
+//				for (int i = 0; i <= articles.size(); i++) {
+//					
+//					foundArticle = articles.get(i);
+//					break;
+//				}
+
 				for (Article article : articles) {
-					if (article.id != lastAticleId) {
-						System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", lastAticleId);
-						break;
-					} else {
-						foundArticle = article;
-						System.out.println("수정할 제목 : ");
-						String title = sc.nextLine().trim();
-						System.out.println("수정할 내용 : ");
-						String body = sc.nextLine();
-						articles.add(new Article(id, title, body, nowTime1));
-						System.out.printf("%d 번 게시물이 수정 되었습니다.\n", lastAticleId);
+					if (article.id == lastAticleId) {
+						foundArticle = articles.get(lastAticleId);
 						break;
 					}
 				}
-				continue;
+
+				if (foundArticle == null) {
+					System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", lastAticleId);
+					continue;
+				}
+
+				System.out.println("수정할 제목 : ");
+				String title = sc.nextLine().trim();
+				System.out.println("수정할 내용 : ");
+				String body = sc.nextLine().trim();
+
+				foundArticle.title = title;
+				foundArticle.body = body;
+
+				System.out.printf("%d 번 게시물이 수정 되었습니다.\n", lastAticleId);
+
+			} else if (cmd.startsWith("article delete ")) {
+				String[] cmdBits = cmd.split(" ");
+				int lastAticleId = 0;
+				Article foundArticle = null;
+
+				try {
+					lastAticleId = Integer.parseInt(cmdBits[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("명령어가 올바르지 않습니다.");
+					continue;
+				}
+
+
+				int foundIndex = -1;
+				
+				for (int i= 0; i < articles.size(); i++) {
+					Article article = articles.get(i);
+					if(article.id == lastAticleId) {
+						foundIndex = i;  
+						break;
+					}
+				}
+				
+				if(foundIndex == -1) {
+					System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", lastAticleId);
+					continue;
+				}
+				articles.remove(foundIndex);
+				System.out.printf("%d 번 게시물이 삭제되었습니다.\n", lastAticleId);
 
 			}
 
@@ -139,6 +164,8 @@ public class Main {
 		sc.close();
 		System.out.println("== 프로그램 끝 ==");
 	}
+
+
 }
 
 class Article {
@@ -155,8 +182,5 @@ class Article {
 
 	}
 
-	public void remove() {
-		// TODO Auto-generated method stub
 
-	}
 }
