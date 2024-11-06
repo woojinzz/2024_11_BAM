@@ -1,8 +1,14 @@
+package com.koreaIT.BAM;
+
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import com.koreaIT.BAM.util.Util;
+import com.koreaIT.dto.Article;
 
 public class Main {
 	
@@ -45,7 +51,7 @@ public class Main {
 				String body = sc.nextLine();
 //				String time = now.toString();
 
-				Article article = new Article(lastAticleId, regDate, title, body, views);
+				Article article = new Article(lastAticleId, Util.getDateStr(), title, body, views);
 				articles.add(article);
 //				articles.add(new Article(id, title, body));
 				System.out.println(lastAticleId + " 번 글이 생성되었습니다.");
@@ -63,7 +69,7 @@ public class Main {
 				System.out.println("번호	:	제목	:	날짜		:		조회수");
 				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
-					System.out.printf("%d	:	%s	:	%s	:	%d\n", article.lastAticleId, article.title, article.regDate, article.views);
+					System.out.printf("%d	:	%s	:	%s	:	%d\n", article.getId(), article.getTitle(),article.getRegDate(), article.getViews());
 
 				}
 			}
@@ -84,7 +90,7 @@ public class Main {
 				Article foundArticle = null;
 
 				for (Article article : articles) {
-					if (article.lastAticleId == id) {
+					if (article.getId() == id) {
 						foundArticle = article;
 						break;
 						
@@ -97,11 +103,11 @@ public class Main {
 				}
 				
 				foundArticle.increaseViewCnt();	//메서드로 분리
-				System.out.println("번호 : " + foundArticle.lastAticleId);
-				System.out.println("날짜 : " + foundArticle.regDate);
-				System.out.println("제목 : " + foundArticle.title);
-				System.out.println("내용 : " + foundArticle.body);
-				System.out.println("조회수  : " + foundArticle.views);
+				System.out.println("번호 : " + foundArticle.getId());
+				System.out.println("날짜 : " + foundArticle.getRegDate());
+				System.out.println("제목 : " + foundArticle.getTitle());
+				System.out.println("내용 : " + foundArticle.getBody());
+				System.out.println("조회수  : " + foundArticle.getViews());
 
 			} else if (cmd.startsWith("article modify ")) {
 				String[] cmdBits = cmd.split(" ");
@@ -118,7 +124,7 @@ public class Main {
 				Article foundArticle = null;
 				
 				for (Article article : articles) {
-					if (article.lastAticleId == id) {
+					if (article.getId() == id) {
 						foundArticle = article;
 						break;
 					}
@@ -134,9 +140,9 @@ public class Main {
 				System.out.printf("수정할 내용 : ");
 				String body = sc.nextLine().trim();
 				
-				foundArticle.title = title;
-				foundArticle.body = body;
-				foundArticle.regDate = regDate;
+				foundArticle.setTitle(title);
+				foundArticle.setBody(body);
+				foundArticle.setRegDate(regDate);
 			
 				System.out.println(id + "번 게시물이 수정되었습니다");
 				
@@ -157,7 +163,7 @@ public class Main {
 				
 				for (int i= 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
-					if(article.lastAticleId == id) {
+					if(article.getId() == id) {
 						foundIndex = i;  
 						break;
 					}
@@ -192,28 +198,4 @@ public class Main {
 	}
 }
 
-class Article {
-	int lastAticleId;
-	String regDate;
-	String title;
-	String body;
-	int views; 
 
-
-	Article(int lastAticleId, String regDate, String title, String body, int views) {
-		this.lastAticleId = lastAticleId;
-		this.regDate = regDate;
-		this.title = title;
-		this.body = body;
-		this.views = views;
-	
-
-	}
-	
-	void increaseViewCnt() {
-		this.views++;
-		
-	}
-
-
-}
