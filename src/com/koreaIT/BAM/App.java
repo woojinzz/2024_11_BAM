@@ -155,6 +155,7 @@ public class App {
 					System.out.println("명령어가 올바르지 않습니다.");
 					continue;
 				}
+				
 				int foundIndex = -1;
 
 				for (int i = 0; i < articles.size(); i++) {
@@ -169,65 +170,73 @@ public class App {
 					System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", id);
 					continue;
 				}
+				
 				articles.remove(foundIndex);
 				System.out.printf("%d 번 게시물이 삭제되었습니다.\n", id);
 
 			}
 
 			else if (cmd.equals("member join")) {
+				String memberId;
+				String memberPw;
+				String memberPwChk;
+				String memberName;
 				System.out.println("======= 회원가입 페이지 =========");
-				
+
 				while (true) {
-
 					System.out.println("아이디  : ");
-					String memberId = sc.nextLine().trim();
-					
-					if (memberId.length() == 0) {
-						System.out.println("아이디를 입력해 주세요");
-						continue;
-					}
-					
-					boolean memberIdChk = true;
+					memberId = sc.nextLine().trim();
 
-					for(Member member : members) {
-						if(memberId.equals(member.getMemberId())) {
-							System.out.println("아이디가 중복되었습니다.");
-							memberIdChk = false;
-							continue;
-						}
-					}
-					if (!memberIdChk) {
+					if (memberId.length() == 0) {
+						System.out.println("아이디를 입력해 주세요.");
 						continue;
 					}
 					
+					if (memberIdDupChk(memberId) == false) {
+						System.out.printf("%s 는 중복된 아이디 입니다.\n", memberId);
+						continue;
+					}
+					System.out.printf("%s 는 사용 가능한 아이디 입니다.\n", memberId);
+					break;
+				}
+
+				while (true) {
 					System.out.println("비밀번호 : ");
-					String memberPw = sc.nextLine().trim();
+					memberPw = sc.nextLine().trim();
+					
 					if (memberPw.length() == 0) {
 						System.out.println("비밀번호를 입력해 주세요");
 						continue;
 					}
+					
 					System.out.println("비밀번호 확인 : ");
-					String memberPwChk = sc.nextLine().trim();
-				
+					memberPwChk = sc.nextLine().trim();
+
+					if (memberPw.equals(memberPwChk) == false) {
+						System.out.println("비밀번호가 일치하지 않습니다.");
+						continue;
+					}
+					break;
+				}
+
+				while (true) {
 					System.out.println("이름 : ");
-					String memberName = sc.nextLine().trim();
+					memberName = sc.nextLine().trim();
+					
 					if (memberName.length() == 0) {
 						System.out.println("이름을 입력해 주세요");
 						continue;
 					}
-
-					if (!memberPw.equals(memberPwChk)) {
-						System.out.println("비밀번호가 일치하지 않습니다.");
-						continue;
-					} else {
-
-						Member member = new Member(memberCnt, Util.getDateStr(), memberId, memberPw, memberName);
-						members.add(member);
-						System.out.printf(memberCnt + "번 %s회원님 가입되었습니다.\n", memberName);
-						memberCnt++;
-						break;
-					}
+					break;
 				}
+		
+				Member member = new Member(memberCnt, Util.getDateStr(), memberId, memberPw, memberName);
+				members.add(member);
+				
+				System.out.printf(memberCnt + "번 %s회원님 가입되었습니다.\n", memberName);
+				memberCnt++;
+				continue;
+				
 			}
 
 			else {
@@ -238,6 +247,8 @@ public class App {
 		System.out.println("== 프로그램 끝 ==");
 	}
 
+
+
 	private Article getArticelById(int id) {
 
 		for (Article article : articles) {
@@ -247,6 +258,16 @@ public class App {
 		}
 		return null;
 	}
+	private boolean memberIdDupChk(String memberId) {
+		
+		for (Member member : members) {
+			if (memberId.equals(member.getMemberId())) {
+				return false; //중복
+			}
+		}
+		return true;// 중복 아님
+	}
+	
 
 	private int getCmdNum(String cmd) {
 
