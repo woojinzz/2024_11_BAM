@@ -6,14 +6,20 @@ import java.util.Scanner;
 
 import com.koreaIT.BAM.util.Util;
 import com.koreaIT.dto.Article;
+import com.koreaIT.dto.Member;
 
 public class App {
 
 	private List<Article> articles;
-	private int lastAticleId; // 아이디
+	private int lastAticleId; // 게시글 아이디
+
+	private List<Member> members;
+	private int memberCnt; // 멤버아이디
 
 	public App() {
 		this.articles = new ArrayList<>();
+		this.members = new ArrayList<>();
+		this.memberCnt = 1;
 		this.lastAticleId = 1;
 	}
 
@@ -65,12 +71,12 @@ public class App {
 				List<Article> searchList = articles; // 검색 결과 저장
 
 				if (search.length() != 0) {
-					searchList = new ArrayList<>(); //초기화 
-					
+					searchList = new ArrayList<>(); // 초기화
+
 					System.out.println("검색어 :" + search);
 
 					for (Article ar : articles) {
-						if (ar.getTitle().contains(search)) { //검색어 포함되어 있는지 확인
+						if (ar.getTitle().contains(search)) { // 검색어 포함되어 있는지 확인
 							searchList.add(ar); // list 에 값 넣을려면 add
 						}
 					}
@@ -166,6 +172,62 @@ public class App {
 				articles.remove(foundIndex);
 				System.out.printf("%d 번 게시물이 삭제되었습니다.\n", id);
 
+			}
+
+			else if (cmd.equals("member join")) {
+				System.out.println("======= 회원가입 페이지 =========");
+				
+				while (true) {
+
+					System.out.println("아이디  : ");
+					String memberId = sc.nextLine().trim();
+					
+					if (memberId.length() == 0) {
+						System.out.println("아이디를 입력해 주세요");
+						continue;
+					}
+					
+					boolean memberIdChk = true;
+
+					for(Member member : members) {
+						if(memberId.equals(member.getMemberId())) {
+							System.out.println("아이디가 중복되었습니다.");
+							memberIdChk = false;
+							continue;
+						}
+					}
+					if (!memberIdChk) {
+						continue;
+					}
+					
+					System.out.println("비밀번호 : ");
+					String memberPw = sc.nextLine().trim();
+					if (memberPw.length() == 0) {
+						System.out.println("비밀번호를 입력해 주세요");
+						continue;
+					}
+					System.out.println("비밀번호 확인 : ");
+					String memberPwChk = sc.nextLine().trim();
+				
+					System.out.println("이름 : ");
+					String memberName = sc.nextLine().trim();
+					if (memberName.length() == 0) {
+						System.out.println("이름을 입력해 주세요");
+						continue;
+					}
+
+					if (!memberPw.equals(memberPwChk)) {
+						System.out.println("비밀번호가 일치하지 않습니다.");
+						continue;
+					} else {
+
+						Member member = new Member(memberCnt, Util.getDateStr(), memberId, memberPw, memberName);
+						members.add(member);
+						System.out.printf(memberCnt + "번 %s회원님 가입되었습니다.\n", memberName);
+						memberCnt++;
+						break;
+					}
+				}
 			}
 
 			else {
