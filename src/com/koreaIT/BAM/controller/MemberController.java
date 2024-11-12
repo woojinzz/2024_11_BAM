@@ -7,15 +7,14 @@ import com.koreaIT.BAM.util.Util;
 import com.koreaIT.dto.Member;
 
 public class MemberController {
-	
+
 	private Scanner sc;
 	private List<Member> members;
 	private int lastAticleId; // 게시글 아이디
 	private int memberCnt; // 멤버아이디
-	
 
 	public MemberController(Scanner sc) {
-		
+
 		this.sc = sc;
 		this.members = new ArrayList<>();
 		this.memberCnt = 1;
@@ -82,7 +81,6 @@ public class MemberController {
 
 		System.out.printf(memberCnt + "번 %s회원님 가입되었습니다.\n", memberName);
 		memberCnt++;
-	
 
 	}
 
@@ -95,7 +93,7 @@ public class MemberController {
 		}
 		return true;// 중복 아님
 	}
-	
+
 	public void makeMemberTestData() {
 		System.out.println("테스트용 회원 데이터 3개 생성");
 
@@ -103,8 +101,5 @@ public class MemberController {
 			members.add(new Member(lastAticleId++, Util.getDateStr(), "user" + i, "user" + i, "유저" + i));
 		}
 	}
-
-
-
 
 }
