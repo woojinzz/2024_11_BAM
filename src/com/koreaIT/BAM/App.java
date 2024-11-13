@@ -18,12 +18,11 @@ public class App {
 
 	public void run() {
 		System.out.println("== 프로그램 시작 ==");
-
 		Scanner sc = new Scanner(System.in);
 		MemberController memberController = new MemberController(sc);
-		memberController.makeMemberTestData();
-
 		ArticleController articleController = new ArticleController(sc);
+
+		memberController.makeMemberTestData();
 		articleController.makeArticleTestData();
 
 		while (true) {
@@ -45,9 +44,9 @@ public class App {
 			} else if (cmd.equals("article write")) {
 				articleController.doWrite();
 			} else if (cmd.startsWith("article list")) {
-				articleController.doList(cmd);
+				articleController.showList(cmd);
 			} else if (cmd.startsWith("article detail ")) {
-				articleController.doDetail(cmd);
+				articleController.showDetail(cmd);
 			} else if (cmd.startsWith("article modify ")) {
 				articleController.doModify(cmd);
 			} else if (cmd.startsWith("article delete ")) {

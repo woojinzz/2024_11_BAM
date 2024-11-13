@@ -40,7 +40,7 @@ public class ArticleController {
 
 	}
 
-	public void doList(String cmd) {
+	public void showList(String cmd) {
 		if (articles.size() == 0) {
 			System.out.println("존재하는 게시글이 없습니다.");
 			return;
@@ -74,7 +74,7 @@ public class ArticleController {
 		}
 	}
 
-	public void doDetail(String cmd) {
+	public void showDetail(String cmd) {
 		int id = getCmdNum(cmd);
 		if (id == 0) {
 			System.out.println("명령어가 올바르지 않습니다.");
