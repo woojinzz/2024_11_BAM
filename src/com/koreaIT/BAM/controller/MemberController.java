@@ -21,7 +21,17 @@ public class MemberController {
 
 	}
 
-	public void dojoin() {
+	public void doAction(String cmd, String methodName) {
+		switch (methodName) {
+		case "join":
+			doJoin();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어 입니다.");
+		}
+	}
+
+	public void doJoin() {
 
 		String memberId;
 		String memberPw;

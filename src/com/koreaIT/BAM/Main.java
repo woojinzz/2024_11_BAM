@@ -12,6 +12,5 @@ import com.koreaIT.dto.Article;
 public class Main {
 	public static void main(String[] args) {
 		new App().run();// 1회성
-
 	}
 }

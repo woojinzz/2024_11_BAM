@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import com.koreaIT.BAM.util.Util;
 import com.koreaIT.dto.Article;
-import com.koreaIT.dto.Member;
 
 public class ArticleController {
 
@@ -14,8 +13,8 @@ public class ArticleController {
 	private List<Article> articles;
 	private int lastAticleId; // 게시글 아이디
 	private int views;// 조회수
-
 	private String regDate;
+	private String cmd;
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
@@ -23,6 +22,43 @@ public class ArticleController {
 		this.lastAticleId = 1;
 		this.views = 0;
 		this.regDate = Util.getDateStr();
+	}
+
+	public void doAction(String cmd, String methodName) {
+		this.cmd = cmd;
+
+		switch (methodName) {
+		case "write":
+			doWrite();
+			break;
+		case "list":
+			showList();
+			break;
+		case "detail":
+			showDetail();
+			break;
+		case "modify":
+			doModify();
+			break;
+		case "delete":
+			doDelete();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어 입니다.");
+		}
+
+//		if (cmd.equals("article write")) {
+//			doWrite();
+//		} else if (cmd.startsWith("article list")) {
+//			showList(cmd);
+//		} else if (cmd.startsWith("article detail ")) {
+//			showDetail(cmd);
+//		} else if (cmd.startsWith("article modify ")) {
+//			doModify(cmd);
+//		} else if (cmd.startsWith("article delete ")) {
+//			doDelete(cmd);
+//		} 
+
 	}
 
 	public void doWrite() {
@@ -40,7 +76,7 @@ public class ArticleController {
 
 	}
 
-	public void showList(String cmd) {
+	public void showList() {
 		if (articles.size() == 0) {
 			System.out.println("존재하는 게시글이 없습니다.");
 			return;
@@ -74,7 +110,7 @@ public class ArticleController {
 		}
 	}
 
-	public void showDetail(String cmd) {
+	public void showDetail() {
 		int id = getCmdNum(cmd);
 		if (id == 0) {
 			System.out.println("명령어가 올바르지 않습니다.");
@@ -96,7 +132,7 @@ public class ArticleController {
 
 	}
 
-	public void doModify(String cmd) {
+	public void doModify() {
 		int id = getCmdNum(cmd);
 		if (id == 0) {
 			System.out.println("명령어가 올바르지 않습니다.");
@@ -129,7 +165,7 @@ public class ArticleController {
 
 	}
 
-	public void doDelete(String cmd) {
+	public void doDelete() {
 
 		int id = getCmdNum(cmd);
 		if (id == 0) {
@@ -178,6 +214,7 @@ public class ArticleController {
 	private int getCmdNum(String cmd) {
 
 		String[] cmdBits = cmd.split(" ");
+
 		int id = 0;
 
 		try {
