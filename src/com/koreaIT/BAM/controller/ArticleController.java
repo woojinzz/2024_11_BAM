@@ -7,23 +7,24 @@ import java.util.Scanner;
 import com.koreaIT.BAM.util.Util;
 import com.koreaIT.dto.Article;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 
-	private Scanner sc;
 	private List<Article> articles;
-	private int lastAticleId; // 게시글 아이디
 	private int views;// 조회수
 	private String regDate;
-	private String cmd;
+
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
 		this.articles = new ArrayList<>();
-		this.lastAticleId = 1;
-		this.views = 0;
-		this.regDate = Util.getDateStr();
+		this.lastId = 1;
+		
+		
+//		this.views = 0;
+//		this.regDate = Util.getDateStr();
 	}
 
+	@Override
 	public void doAction(String cmd, String methodName) {
 		this.cmd = cmd;
 
@@ -46,19 +47,6 @@ public class ArticleController {
 		default:
 			System.out.println("존재하지 않는 명령어 입니다.");
 		}
-
-//		if (cmd.equals("article write")) {
-//			doWrite();
-//		} else if (cmd.startsWith("article list")) {
-//			showList(cmd);
-//		} else if (cmd.startsWith("article detail ")) {
-//			showDetail(cmd);
-//		} else if (cmd.startsWith("article modify ")) {
-//			doModify(cmd);
-//		} else if (cmd.startsWith("article delete ")) {
-//			doDelete(cmd);
-//		} 
-
 	}
 
 	public void doWrite() {
@@ -68,11 +56,11 @@ public class ArticleController {
 		String body = sc.nextLine();
 //		String time = now.toString();
 
-		Article article = new Article(lastAticleId, Util.getDateStr(), title, body, views);
+		Article article = new Article(lastId, Util.getDateStr(), title, body, views);
 		articles.add(article);
 //		articles.add(new Article(id, title, body));
-		System.out.println(lastAticleId + " 번 글이 생성되었습니다.");
-		lastAticleId++;
+		System.out.println(lastId + " 번 글이 생성되었습니다.");
+		lastId++;
 
 	}
 
@@ -203,11 +191,11 @@ public class ArticleController {
 		return null;
 	}
 
-	public void makeArticleTestData() {
+	public void makeTestData() {
 		System.out.println("테스트용 게시글 데이터 5개 생성");
 
 		for (int i = 1; i <= 5; i++) {
-			articles.add(new Article(lastAticleId++, Util.getDateStr(), "제목" + i, "내용" + i, i * 10));
+			articles.add(new Article(lastId++, Util.getDateStr(), "제목" + i, "내용" + i, i * 10));
 		}
 	}
 
@@ -221,6 +209,9 @@ public class ArticleController {
 			id = Integer.parseInt(cmdBits[2]);
 			return id;
 		} catch (NumberFormatException e) {
+			return 0;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
 			return 0;
 		}
 	}

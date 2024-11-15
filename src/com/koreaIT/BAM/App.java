@@ -1,14 +1,10 @@
 package com.koreaIT.BAM;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.controller.ArticleController;
+import com.koreaIT.BAM.controller.Controller;
 import com.koreaIT.BAM.controller.MemberController;
-import com.koreaIT.BAM.util.Util;
-import com.koreaIT.dto.Article;
-import com.koreaIT.dto.Member;
 
 public class App {
 	public void run() {
@@ -17,8 +13,8 @@ public class App {
 		MemberController memberController = new MemberController(sc);
 		ArticleController articleController = new ArticleController(sc);
 
-		memberController.makeMemberTestData();
-		articleController.makeArticleTestData();
+		memberController.makeTestData();
+		articleController.makeTestData();
 
 		while (true) {
 
@@ -34,19 +30,26 @@ public class App {
 				continue;
 			}
 			String[] cmdBits = cmd.split(" ");
+			
+			if (cmdBits.length < 2) {
+				System.out.println("존재하지 않는 명령어 입니다.");
+				continue;
+			}
 			String controllerName = cmdBits[0];
 			String methodName = cmdBits[1];
 
+			Controller controller = null;
+
 			if (controllerName.equals("article")) {
-				articleController.doAction(cmd, methodName);
-
+				controller = articleController;
 			} else if (controllerName.equals("member")) {
-				memberController.doAction(cmd, methodName);
+				controller = memberController;
 			}
-
 			else {
 				System.out.println("존재하지 않는 명령어 입니다.");
+				continue;
 			}
+			controller.doAction(cmd, methodName);
 		}
 		sc.close();
 		System.out.println("== 프로그램 종료 ==");

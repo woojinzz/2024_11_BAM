@@ -6,11 +6,10 @@ import java.util.Scanner;
 import com.koreaIT.BAM.util.Util;
 import com.koreaIT.dto.Member;
 
-public class MemberController {
+public class MemberController extends Controller {
 
-	private Scanner sc;
+	
 	private List<Member> members;
-	private int lastAticleId; // 게시글 아이디
 	private int memberCnt; // 멤버아이디
 
 	public MemberController(Scanner sc) {
@@ -21,6 +20,7 @@ public class MemberController {
 
 	}
 
+	@Override
 	public void doAction(String cmd, String methodName) {
 		switch (methodName) {
 		case "join":
@@ -104,11 +104,11 @@ public class MemberController {
 		return true;// 중복 아님
 	}
 
-	public void makeMemberTestData() {
+	public void makeTestData() {
 		System.out.println("테스트용 회원 데이터 3개 생성");
 
 		for (int i = 1; i <= 3; i++) {
-			members.add(new Member(lastAticleId++, Util.getDateStr(), "user" + i, "user" + i, "유저" + i));
+			members.add(new Member(lastId++, Util.getDateStr(), "user" + i, "user" + i, "유저" + i));
 		}
 	}
 
