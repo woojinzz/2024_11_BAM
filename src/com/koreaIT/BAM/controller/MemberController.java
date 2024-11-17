@@ -8,7 +8,6 @@ import com.koreaIT.dto.Member;
 
 public class MemberController extends Controller {
 
-	
 	private List<Member> members;
 	private int memberCnt; // 멤버아이디
 
@@ -25,6 +24,9 @@ public class MemberController extends Controller {
 		switch (methodName) {
 		case "join":
 			doJoin();
+			break;
+		case "login":
+			doLogin();
 			break;
 		default:
 			System.out.println("존재하지 않는 명령어 입니다.");
@@ -94,15 +96,55 @@ public class MemberController extends Controller {
 
 	}
 
-	private boolean memberIdDupChk(String memberId) {
+	private void doLogin() {
 
-		for (Member member : members) {
-			if (memberId.equals(member.getMemberId())) {
-				return false; // 중복
-			}
+		String memberId;
+		String memberPw;
+
+		System.out.println("아이디  : ");
+		memberId = sc.nextLine().trim();
+		System.out.println("비밀번호  : ");
+		memberPw = sc.nextLine().trim();
+		
+		Member foundMember = memberloginDupChk(memberId);
+		
+		if (foundMember == null) {
+			System.out.println("아이디가 다릅니다.");
+			return;
+		}
+
+		if (foundMember.getMemberPw().equals(memberPw) == false) {
+			System.out.println("비밀번호가 다릅니다.");
+			return;
+		}
+		System.out.println("로그인 성공");
+
+	}
+
+
+	private boolean memberIdDupChk(String memberId) {
+		Member member = memberloginDupChk(memberId);
+		
+		if (member != null) {
+			return false;
 		}
 		return true;// 중복 아님
 	}
+	
+	//로그인 아이디 체크
+	private Member memberloginDupChk(String memberId) {
+		Member foundMember = null;
+
+		for (Member member : members) {
+			if (member.getMemberId().equals(memberId)) {
+				foundMember = member;
+				return foundMember;//아이디 존재
+			}
+		}
+		return null;//아이디 존재안함
+		
+	}
+
 
 	public void makeTestData() {
 		System.out.println("테스트용 회원 데이터 3개 생성");

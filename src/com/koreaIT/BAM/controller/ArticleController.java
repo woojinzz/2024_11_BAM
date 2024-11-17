@@ -18,8 +18,6 @@ public class ArticleController extends Controller {
 		this.sc = sc;
 		this.articles = new ArrayList<>();
 		this.lastId = 1;
-		
-		
 //		this.views = 0;
 //		this.regDate = Util.getDateStr();
 	}
