@@ -9,6 +9,7 @@ import com.koreaIT.dto.Member;
 public class MemberController extends Controller {
 
 	private List<Member> members;
+	private Member loginedMember;
 	private int memberCnt; // 멤버아이디
 
 	public MemberController(Scanner sc) {
@@ -16,7 +17,7 @@ public class MemberController extends Controller {
 		this.sc = sc;
 		this.members = new ArrayList<>();
 		this.memberCnt = 1;
-
+		this.loginedMember = null;
 	}
 
 	@Override
@@ -28,12 +29,20 @@ public class MemberController extends Controller {
 		case "login":
 			doLogin();
 			break;
+		case "logout":
+			doLogout();
+			break;
 		default:
 			System.out.println("존재하지 않는 명령어 입니다.");
 		}
 	}
 
 	public void doJoin() {
+		
+		if (this.loginedMember != null) {
+			System.out.println("로그인 상태입니다.");
+			return;
+		}
 
 		String memberId;
 		String memberPw;
@@ -97,6 +106,11 @@ public class MemberController extends Controller {
 	}
 
 	private void doLogin() {
+		
+		if (this.loginedMember != null) {
+			System.out.println("로그인 상태입니다.");
+			return;
+		}
 
 		String memberId;
 		String memberPw;
@@ -112,16 +126,25 @@ public class MemberController extends Controller {
 			System.out.println("아이디가 다릅니다.");
 			return;
 		}
-
 		if (foundMember.getMemberPw().equals(memberPw) == false) {
 			System.out.println("비밀번호가 다릅니다.");
 			return;
 		}
+		this.loginedMember = foundMember; //로그인 정보 저장
 		System.out.println("로그인 성공");
-
 	}
+		
+	private void doLogout() {
 
-
+		if (this.loginedMember == null) {
+			System.out.println("로그인중이 아닙니다.");
+			return;
+		}
+		
+		this.loginedMember = null;
+		System.out.println("로그아웃 되었습니다.");
+	}
+	
 	private boolean memberIdDupChk(String memberId) {
 		Member member = memberloginDupChk(memberId);
 		
