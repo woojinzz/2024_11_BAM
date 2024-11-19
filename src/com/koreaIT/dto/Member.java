@@ -2,28 +2,28 @@ package com.koreaIT.dto;
 
 public class Member {
 
-	private int memberCnt;
+	private int memberId;
 	private String memberRegDate;
-	private String memberId;
-	private String memberPw;
-	private String memberName;
+	private String memberLoginId;
+	private String memberLoginPw;
+	private String memberLoginName;
 
-	public Member(int memberCnt, String memberRegDate, String memberId, String memberPw, String memberName) {
+	public Member(int memberId, String memberRegDate, String memberLoginId, String memberLoginPw, String memberLoginName) {
 
-		this.memberCnt = memberCnt;
-		this.memberRegDate = memberRegDate;
 		this.memberId = memberId;
-		this.memberPw = memberPw;
-		this.memberName = memberName;
+		this.memberRegDate = memberRegDate;
+		this.memberLoginId = memberLoginId;
+		this.memberLoginPw = memberLoginPw;
+		this.memberLoginName = memberLoginName;
 
 	}
 
-	public int getMemberCnt() {
-		return memberCnt;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setMemberCnt(int memberCnt) {
-		this.memberCnt = memberCnt;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getMemberRegDate() {
@@ -34,28 +34,28 @@ public class Member {
 		this.memberRegDate = memberRegDate;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getMemberLoginId() {
+		return memberLoginId;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberLoginId(String memberLoginId) {
+		this.memberLoginId = memberLoginId;
 	}
 
-	public String getMemberPw() {
-		return memberPw;
+	public String getMemberLoginPw() {
+		return memberLoginPw;
 	}
 
-	public void setMemberPw(String memberPw) {
-		this.memberPw = memberPw;
+	public void setMemberPw(String memberLoginPw) {
+		this.memberLoginPw = memberLoginPw;
 	}
 
-	public String getMemberName() {
-		return memberName;
+	public String getMemberLoginName() {
+		return memberLoginName;
 	}
 
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
+	public void setMemberLoginName(String memberLoginName) {
+		this.memberLoginName = memberLoginName;
 	}
 
 //	public void increaseViewCnt() {

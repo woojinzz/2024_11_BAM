@@ -5,7 +5,8 @@ public class Article {
 	private String regDate;
 	private String title;
 	private String body;
-	private int views; 
+	private int views;
+	private int memberId; 
 
 
 	public int getId() {
@@ -47,13 +48,22 @@ public class Article {
 	public void setViews(int views) {
 		this.views = views;
 	}
+	
+	public int getMemberId() {
+		return memberId;
+	}
 
-	public Article(int id, String regDate, String title, String body, int views) {
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+
+	public Article(int id, String regDate, String title, String body, int views, int memberId) {
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
 		this.views = views;
+		this.memberId = memberId;
 	
 
 	}
