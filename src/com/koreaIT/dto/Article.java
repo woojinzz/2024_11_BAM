@@ -3,19 +3,19 @@ package com.koreaIT.dto;
 public class Article {
 	private int id;
 	private String regDate;
+	private int memberId;
 	private String title;
 	private String body;
 	private int views;
-	private int memberId; 
-
 
 	public int getId() {
 		return id;
 	}
 
-	public void setLastAticleId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getRegDate() {
 		return regDate;
@@ -23,6 +23,14 @@ public class Article {
 
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+	
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getTitle() {
@@ -48,26 +56,18 @@ public class Article {
 	public void setViews(int views) {
 		this.views = views;
 	}
-	
-	public int getMemberId() {
-		return memberId;
-	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
-	}
-
-	public Article(int id, String regDate, String title, String body, int views, int memberId) {
+	public Article(int id, String regDate, int memberId, String title, String body, int views) {
 		this.id = id;
 		this.regDate = regDate;
+		this.memberId = memberId;
 		this.title = title;
 		this.body = body;
 		this.views = views;
-		this.memberId = memberId;
 	
-
 	}
 	
+
 	public void increaseViewCnt() {
 		this.views++;
 	}

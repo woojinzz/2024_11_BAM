@@ -1,65 +1,57 @@
 package com.koreaIT.dto;
 
 public class Member {
-
-	private int memberId;
-	private String memberRegDate;
-	private String memberLoginId;
-	private String memberLoginPw;
-	private String memberLoginName;
-
-	public Member(int memberId, String memberRegDate, String memberLoginId, String memberLoginPw, String memberLoginName) {
-
-		this.memberId = memberId;
-		this.memberRegDate = memberRegDate;
-		this.memberLoginId = memberLoginId;
-		this.memberLoginPw = memberLoginPw;
-		this.memberLoginName = memberLoginName;
-
+	private int id;
+	private String regDate;
+	private String loginId;
+	private String loginPw;
+	private String name;
+	
+	public int getId() {
+		return id;
 	}
 
-	public int getMemberId() {
-		return memberId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public String getRegDate() {
+		return regDate;
 	}
 
-	public String getMemberRegDate() {
-		return memberRegDate;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 
-	public void setMemberRegDate(String memberRegDate) {
-		this.memberRegDate = memberRegDate;
+	public String getLoginId() {
+		return loginId;
 	}
 
-	public String getMemberLoginId() {
-		return memberLoginId;
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 
-	public void setMemberLoginId(String memberLoginId) {
-		this.memberLoginId = memberLoginId;
+	public String getLoginPw() {
+		return loginPw;
 	}
 
-	public String getMemberLoginPw() {
-		return memberLoginPw;
+	public void setLoginPw(String loginPw) {
+		this.loginPw = loginPw;
 	}
 
-	public void setMemberPw(String memberLoginPw) {
-		this.memberLoginPw = memberLoginPw;
+	public String getName() {
+		return name;
 	}
 
-	public String getMemberLoginName() {
-		return memberLoginName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setMemberLoginName(String memberLoginName) {
-		this.memberLoginName = memberLoginName;
+	public Member(int id, String regDate, String loginId, String loginPw, String name) {
+		this.id = id;
+		this.regDate = regDate;
+		this.loginId = loginId;
+		this.loginPw = loginPw;
+		this.name = name;
 	}
-
-//	public void increaseViewCnt() {
-//		this.views++;
-//	}
-
 }
