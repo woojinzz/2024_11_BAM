@@ -3,8 +3,8 @@ package com.koreaIT.BAM.Container;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.koreaIT.dto.Article;
-import com.koreaIT.dto.Member;
+import com.koreaIT.BAM.dto.Article;
+import com.koreaIT.BAM.dto.Member;
 
 public class Container {
 	public static List<Member> members;

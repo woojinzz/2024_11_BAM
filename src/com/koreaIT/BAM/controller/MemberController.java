@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.Container.Container;
+import com.koreaIT.BAM.dto.Article;
+import com.koreaIT.BAM.dto.Member;
 import com.koreaIT.BAM.util.Util;
-import com.koreaIT.dto.Article;
-import com.koreaIT.dto.Member;
 
 public class MemberController extends Controller {
 
@@ -42,11 +42,6 @@ public class MemberController extends Controller {
 
 	public void doJoin() {
 		
-		if (isLogined()) {
-			System.out.println("로그인 상태입니다.");
-			return;
-		}
-
 		String loginId;
 		String loginPw;
 		String loginPwChk;
@@ -109,11 +104,6 @@ public class MemberController extends Controller {
 	}
 
 	private void doLogin() {
-		
-		if (isLogined()) {
-			System.out.println("로그인 상태입니다.");
-			return;
-		}
 
 		String memberLoginId;
 		String memberLoginPw;
@@ -137,13 +127,7 @@ public class MemberController extends Controller {
 		System.out.println("로그인 성공");
 	}
 		
-	private void doLogout() {
-
-		if ( isLogined() == false) {
-			System.out.println("로그인중이 아닙니다.");
-			return;
-		}
-		
+	private void doLogout() {	
 		loginedMember = null;
 		System.out.println("로그아웃 되었습니다.");
 	}

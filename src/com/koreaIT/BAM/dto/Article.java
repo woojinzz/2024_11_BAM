@@ -1,4 +1,4 @@
-package com.koreaIT.dto;
+package com.koreaIT.BAM.dto;
 
 public class Article {
 	private int id;

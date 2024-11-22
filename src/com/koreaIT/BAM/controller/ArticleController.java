@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.Container.Container;
+import com.koreaIT.BAM.dto.Article;
+import com.koreaIT.BAM.dto.Member;
 import com.koreaIT.BAM.util.Util;
-import com.koreaIT.dto.Article;
-import com.koreaIT.dto.Member;
 
 public class ArticleController extends Controller {
 
@@ -47,12 +47,7 @@ public class ArticleController extends Controller {
 	}
 
 	public void doWrite() {
-		
-		if (isLogined() == false) {
-			System.out.println("로그인을 해주세요.");
-			return;
-		}
-		
+
 		System.out.println("제목 : ");
 		String title = sc.nextLine().trim();
 		System.out.println("내용 : ");
@@ -96,6 +91,7 @@ public class ArticleController extends Controller {
 		System.out.println("번호	:	날짜			:	작성자 	: 	제목	:	조회수 ");
 		for (int i = searchList.size() - 1; i >= 0; i--) {
 			Article article = searchList.get(i);  
+			
 			String weiterLoginId = getLoginIdByMemberId(article.getMemberId());
 			
 			System.out.printf("%d	:	%s	:	%s	:	%s	:	%d \n", article.getId(), article.getRegDate(), weiterLoginId,
@@ -109,52 +105,48 @@ public class ArticleController extends Controller {
 			System.out.println("명령어가 올바르지 않습니다.");
 			return;
 		}
-		Article foundArticle = getArticelById(id);
+		Article foundArticle = getArticleById(id);
+		
+		
 
 		if (foundArticle == null) {
 			System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", id);
 			return;
 		}
 		
-		String weiterLoginId = getLoginIdByMemberId(foundArticle.getMemberId());
 		
-
+		
+		String weiterLoginId = getLoginIdByMemberId(foundArticle.getMemberId());
 		System.out.println("번호 : " + foundArticle.getId());
 		System.out.println("날짜 : " + foundArticle.getRegDate());
 		System.out.println("작성자 : " 	+ weiterLoginId); 
 		System.out.println("제목 : " + foundArticle.getTitle());
 		System.out.println("내용 : " + foundArticle.getBody());
 		System.out.println("조회수  : " + foundArticle.getViews());
-		
-
 	}
 
 
 	public void doModify() {
-		
-		if (isLogined() == false) {
-			System.out.println("로그인을 해주세요.");
-			return;
-		}
-		
+
 		int id = getCmdNum(cmd);
 		if (id == 0) {
 			System.out.println("명령어가 올바르지 않습니다.");
 			return;
 		}
-		Article foundArticle = getArticelById(id);
 
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				foundArticle = article;
-				break;
-			}
-		}
+		Article foundArticle = getArticleById(id);
+
 
 		if (foundArticle == null) {
 			System.out.println(id + "번 게시물이 존재하지 않습니다");
 			return;
 		}
+		
+		if (foundArticle.getMemberId() != loginedMember.getId()) {
+			System.out.println("권한이 없습니다.");
+			return;
+		}
+		
 
 		System.out.printf("수정할 제목 : ");
 		String title = sc.nextLine().trim();
@@ -170,11 +162,6 @@ public class ArticleController extends Controller {
 
 	public void doDelete() {
 		
-		if (isLogined() == false) {
-			System.out.println("로그인을 해주세요.");
-			return;
-		}
-
 		int id = getCmdNum(cmd);
 		if (id == 0) {
 			System.out.println("명령어가 올바르지 않습니다.");
@@ -190,19 +177,35 @@ public class ArticleController extends Controller {
 				break;
 			}
 		}
+		
+		Article foundAticle = getArticleById(id);
 
-		if (foundIndex == -1) {
+		if (foundAticle == null) {
 			System.out.printf("%d 번 게시물이 존재하지 않습니다.\n", id);
 			return;
 		}
 
+		if (foundAticle.getMemberId() != loginedMember.getId()) {
+			System.out.println("권한이 없습니다.");
+			return;
+		}
+		
 		articles.remove(foundIndex);
 		System.out.printf("%d 번 게시물이 삭제되었습니다.\n", id);
 
 	}
 
-	public Article getArticelById(int id) {
+	private String getLoginIdByMemberId(int memberId) {
+		for (Member member : members) {
+			if ( memberId == (member.getId())) {
+				 return member.getLoginId();
+			}
+		}
+		return null;
+	}
 
+	public Article getArticleById(int id) {
+		
 		for (Article article : articles) {
 			if (article.getId() == id) {
 				return article;
@@ -210,17 +213,6 @@ public class ArticleController extends Controller {
 		}
 		return null;
 	}
-	
-	private String getLoginIdByMemberId(int memberId) {
-		for (Member member : members) {
-			if ( memberId == (member.getId())) {
-				 return member.getLoginId();
-			}
-		}
-		
-		return null;
-	}
-
 
 	public void makeTestData() {
 		System.out.println("테스트용 게시글 데이터 5개 생성");
