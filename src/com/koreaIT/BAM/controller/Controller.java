@@ -1,9 +1,8 @@
 package com.koreaIT.BAM.controller;
 
-import java.util.List;
 import java.util.Scanner;
 
-import com.koreaIT.dto.Member;
+import com.koreaIT.BAM.dto.Member;
 
 public abstract class Controller {
 	
@@ -21,7 +20,7 @@ public abstract class Controller {
 	public abstract void doAction(String cmd, String methodName);
 	public abstract void makeTestData();
 	
-	public boolean isLogined() {
+	public static boolean isLogined() {
 		return loginedMember != null; //로그인 한 상태 static 변수여서 사용 가능
 	}
 }

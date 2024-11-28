@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.util.Util;
-import com.koreaIT.dto.Article;
 
 public class Main {
 	public static void main(String[] args) {

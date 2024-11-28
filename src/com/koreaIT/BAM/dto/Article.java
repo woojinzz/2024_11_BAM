@@ -1,19 +1,18 @@
-package com.koreaIT.dto;
+package com.koreaIT.BAM.dto;
 
 public class Article {
 	private int id;
 	private String regDate;
+	private int memberId;
 	private String title;
 	private String body;
-	private int views;
-	private int memberId; 
-
-
+	private int viewCnt;
+	
 	public int getId() {
 		return id;
 	}
 
-	public void setLastAticleId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -25,6 +24,14 @@ public class Article {
 		this.regDate = regDate;
 	}
 
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -41,36 +48,24 @@ public class Article {
 		this.body = body;
 	}
 
-	public int getViews() {
-		return views;
+	public int getViewCnt() {
+		return viewCnt;
 	}
 
-	public void setViews(int views) {
-		this.views = views;
-	}
-	
-	public int getMemberId() {
-		return memberId;
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
 	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
-	}
-
-	public Article(int id, String regDate, String title, String body, int views, int memberId) {
+	public Article(int id, String regDate, int memberId, String title, String body, int viewCnt) {
 		this.id = id;
 		this.regDate = regDate;
+		this.memberId = memberId;
 		this.title = title;
 		this.body = body;
-		this.views = views;
-		this.memberId = memberId;
-	
-
+		this.viewCnt = viewCnt;
 	}
 	
 	public void increaseViewCnt() {
-		this.views++;
+		this.viewCnt++;
 	}
-
-
 }

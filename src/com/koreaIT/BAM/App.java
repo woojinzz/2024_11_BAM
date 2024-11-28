@@ -37,7 +37,30 @@ public class App {
 			}
 			String controllerName = cmdBits[0];
 			String methodName = cmdBits[1];
-
+			
+			String actionName = controllerName + "/" + methodName;
+			
+			switch (actionName) {
+			case "article/write":
+			case "article/modify":
+			case "article/delete":
+			case "member/logout":
+				if (Controller.isLogined() == false) {
+					System.out.println("로그인 하고 와");
+					continue;
+				}
+				
+				break;
+				
+			case "member/join":
+			case "member/login":
+				if(Controller.isLogined()) {
+					System.out.println("로그아웃 하고 와");
+					continue;
+				}
+				break;
+			}
+		
 			Controller controller = null;
 
 			if (controllerName.equals("article")) {
@@ -53,6 +76,11 @@ public class App {
 		}
 		sc.close();
 		System.out.println("== 프로그램 종료 ==");
+	}
+
+	private void swtich() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
