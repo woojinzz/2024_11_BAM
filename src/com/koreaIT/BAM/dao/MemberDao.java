@@ -1,9 +1,8 @@
 package com.koreaIT.BAM.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.koreaIT.BAM.container.Container;
-import com.koreaIT.BAM.dto.Article;
 import com.koreaIT.BAM.dto.Member;
 import com.koreaIT.BAM.util.Util;
 
@@ -14,7 +13,7 @@ public class MemberDao {
 
 	public MemberDao() {
 		this.lastId = 1;
-		this.members = Container.members;
+		this.members = new ArrayList<>();
 	}
 
 	// 로그인 아이디 체크
@@ -39,9 +38,9 @@ public class MemberDao {
 		return true;// 중복 아님
 	}
 
-	public int joinMember(String loginId, String loginPw, String loginName) {
+	public void joinMember(String loginId, String loginPw, String loginName) {
 		members.add(new Member(lastId, Util.getDateStr(), loginId, loginPw, loginName));
-		return lastId++;
+		lastId++;
 	}
 
 }

@@ -3,7 +3,6 @@ package com.koreaIT.BAM.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.koreaIT.BAM.container.Container;
 import com.koreaIT.BAM.dto.Article;
 import com.koreaIT.BAM.util.Util;
 
@@ -14,14 +13,18 @@ public class ArticleDao {
 
 	public ArticleDao() {
 		this.lastId = 1;
-		this.articles = Container.articles;
+		this.articles = new ArrayList<>();
 	}
 
-	public int writeArticle(int memberId, String body, String title, int viewCnt) {
-		articles.add(new Article(lastId, Util.getDateStr(), memberId, title, body, viewCnt));
-		return lastId++;
+	public int getLastId() {
+		return lastId;
 	}
-	
+
+	public void writeArticle(int memberId, String body, String title, int viewCnt) {
+		articles.add(new Article(lastId, Util.getDateStr(), memberId, title, body, viewCnt));
+		lastId++;
+	}
+
 	public Article getArticelById(int id) {
 
 		for (Article article : articles) {
@@ -38,8 +41,8 @@ public class ArticleDao {
 	}
 
 	public void deleteArticle(Article foundArticle) {
-		articles.remove(foundArticle); //아티클 안에있는 리무브라는 메서드를 사용해서 파운드아티글을 제거
-		
+		articles.remove(foundArticle); // 아티클 안에있는 리무브라는 메서드를 사용해서 파운드아티글을 제거
+
 	}
 
 	public void increaseViewCnt(Article foundArticle) {
@@ -47,17 +50,17 @@ public class ArticleDao {
 	}
 
 	public List<Article> getPrintArticles(String searchKeyword) {
-		
-		if(searchKeyword.length() > 0) {
+
+		if (searchKeyword.length() > 0) {
 			System.out.println("검색어 : " + searchKeyword);
-			
+
 			List<Article> printArticles = new ArrayList<>();
-			
+
 			for (Article article : articles) {
 				if (article.getTitle().contains(searchKeyword)) {
 					printArticles.add(article);
 				}
-				
+
 			}
 			return printArticles;
 		}

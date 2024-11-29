@@ -1,13 +1,10 @@
 package com.koreaIT.BAM.controller;
 
-import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.container.Container;
-import com.koreaIT.BAM.dto.Article;
 import com.koreaIT.BAM.dto.Member;
 import com.koreaIT.BAM.service.MemberService;
-import com.koreaIT.BAM.util.Util;
 
 public class MemberController extends Controller {
 
@@ -16,7 +13,7 @@ public class MemberController extends Controller {
 	public MemberController(Scanner sc) {
 
 		this.sc = sc;
-		this.memberService = new MemberService();
+		this.memberService = Container.memberService;
 		loginedMember = null;
 	}
 
@@ -92,7 +89,7 @@ public class MemberController extends Controller {
 			break;
 		}
 
-		int memberNumber = memberService.joinMember(loginId, loginPw, loginName);
+		memberService.joinMember(loginId, loginPw, loginName);
 
 		System.out.println("[" + loginId + "] 회원님의 가입이 완료되었습니다.");
 		lastId++;
