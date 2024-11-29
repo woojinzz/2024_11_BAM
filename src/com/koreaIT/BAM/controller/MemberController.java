@@ -10,21 +10,15 @@ import com.koreaIT.BAM.service.MemberService;
 import com.koreaIT.BAM.util.Util;
 
 public class MemberController extends Controller {
-	
-	private MemberService memberService;
 
-	private List<Article> articles;
-	private static List<Member> members;
+	private MemberService memberService;
 
 	public MemberController(Scanner sc) {
 
 		this.sc = sc;
-		this.members = Container.members;
-		this.articles = Container.articles;
-		this.lastId = 1; //게시글 아이디
+		this.memberService = new MemberService();
 		loginedMember = null;
 	}
-
 
 	@Override
 	public void doAction(String cmd, String methodName) {
@@ -44,7 +38,7 @@ public class MemberController extends Controller {
 	}
 
 	public void doJoin() {
-		
+
 		String loginId;
 		String loginPw;
 		String loginPwChk;
@@ -97,7 +91,7 @@ public class MemberController extends Controller {
 			}
 			break;
 		}
-		
+
 		int memberNumber = memberService.joinMember(loginId, loginPw, loginName);
 
 		System.out.println("[" + loginId + "] 회원님의 가입이 완료되었습니다.");
@@ -114,9 +108,9 @@ public class MemberController extends Controller {
 		memberLoginId = sc.nextLine().trim();
 		System.out.println("비밀번호  : ");
 		memberLoginPw = sc.nextLine().trim();
-		
-		Member foundMember = memberloginDupChk(memberLoginId);
-		
+
+		Member foundMember = memberService.getMemberByLoginId(memberLoginId);
+
 		if (foundMember == null) {
 			System.out.println("아이디가 다릅니다.");
 			return;
@@ -125,19 +119,14 @@ public class MemberController extends Controller {
 			System.out.println("비밀번호가 다릅니다.");
 			return;
 		}
-		loginedMember = foundMember; //로그인 정보 저장
+		loginedMember = foundMember; // 로그인 정보 저장
 		System.out.println("로그인 성공");
 	}
-		
 
-	private void doLogout() {	
+	private void doLogout() {
 		loginedMember = null;
 		System.out.println("로그아웃 되었습니다.");
 	}
-	
-
-
-
 
 	public void makeTestData() {
 		System.out.println("테스트용 회원 데이터 3개 생성");

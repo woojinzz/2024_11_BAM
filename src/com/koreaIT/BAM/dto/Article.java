@@ -16,6 +16,7 @@ public class Article {
 		this.id = id;
 	}
 
+
 	public String getRegDate() {
 		return regDate;
 	}
@@ -23,7 +24,7 @@ public class Article {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-
+	
 	public int getMemberId() {
 		return memberId;
 	}
@@ -57,14 +58,17 @@ public class Article {
 	}
 
 	public Article(int id, String regDate, int memberId, String title, String body, int viewCnt) {
+
 		this.id = id;
 		this.regDate = regDate;
 		this.memberId = memberId;
 		this.title = title;
 		this.body = body;
 		this.viewCnt = viewCnt;
+
 	}
 	
+
 	public void increaseViewCnt() {
 		this.viewCnt++;
 	}
